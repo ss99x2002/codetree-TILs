@@ -21,20 +21,16 @@ int main()
     int stn;
 
     for (int i = 0; i < n; i++) {
-        cnt = 1;
+        cnt = 0;
+        stn = arr[i][0];
         for (int j = 0; j < n; j++) {
-            if (j == 0) {
-                stn = arr[i][j];
-            }
-            else {
-                if (stn == arr[i][j]) {
+               if (stn == arr[i][j]) {
                     cnt++;
                 }
                 else {
-                    cnt = 1;
+                    cnt = 0;
                     stn = arr[i][j];
                 }
-            }
             if (cnt == m) {
                 ans++;
                 break;
@@ -42,22 +38,16 @@ int main()
         }
     }
 
-    int stnCol;
     for (int i = 0; i < n; i++) {
-        cnt = 1;
+        cnt = 0;
+        stn = arr[0][i];
         for (int j = 0; j < n; j++) {
-            if (j == 0) {
-                stnCol = arr[j][i];
+            if (stn == arr[j][i]) {
+                cnt++;
             }
             else {
-                if (stnCol == arr[j][i]) {
-                    cnt++;
-                }
-                else {
-                    stnCol = arr[j][i];
-                    cnt = 1;
-                }
-
+                cnt = 0;
+                stn = arr[j][i];
             }
             if (cnt == m) {
                 ans++;
