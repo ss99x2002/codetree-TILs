@@ -14,7 +14,6 @@ int main() {
 
     for (int i = 5; i <= n; i++) {
         arr[i] = arr[i - 2] + arr[i - 3];
-        cout << "현재 i값은? " << i << "배열 안 값은" << arr[i] << "\n";
     }
     cout << arr[n] % 10007;
     return 0;
