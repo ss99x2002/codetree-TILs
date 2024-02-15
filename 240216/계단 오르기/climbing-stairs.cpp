@@ -12,7 +12,7 @@ int main() {
     arr[3] = 1;
 
     for (int i=4; i<=n; i++){
-        arr[n] = arr[n-2]+ arr[n-3];
+        arr[i] = arr[i-2]+ arr[i-3];
     }
     cout << arr[n]%10007;
     return 0;
