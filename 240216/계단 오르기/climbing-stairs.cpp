@@ -13,8 +13,8 @@ int main() {
     arr[4] = 1;
 
     for (int i = 5; i <= n; i++) {
-        arr[i] = arr[i - 2] + arr[i - 3];
+        arr[i] = (arr[i - 2] + arr[i - 3])%10007;
     }
-    cout << (arr[n] % 10007);
+    cout << arr[n];
     return 0;
 }
