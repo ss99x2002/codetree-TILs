@@ -15,6 +15,6 @@ int main() {
     for (int i = 5; i <= n; i++) {
         arr[i] = arr[i - 2] + arr[i - 3];
     }
-    cout << arr[n] % 10007;
+    cout << (arr[n] % 10007);
     return 0;
 }
