@@ -13,7 +13,7 @@ int main() {
     for (int i=2; i<=N; i++){
         dp[i] =( 2*dp[i-1] + 3*dp[i-2] ) % 1000000007;
         for (int j=i-3; j>=0; j--) {
-            dp[i] = (2*dp[i-j] + dp[i])%1000000007;
+            dp[i] = (2*dp[j] + dp[i])%1000000007;
         }
     }
 
