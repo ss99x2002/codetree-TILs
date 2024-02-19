@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 int N;
@@ -30,13 +31,7 @@ int main() {
     }
 
 
-    int ans = INT16_MAX;
-    
-    for (int i = 0; i < N; i++) {
-        ans = min(ans, dp[N - 1][i]);
-    }
-
-    cout << ans;
+       cout << dp[N - 1][0];
 
     return 0;
 }
