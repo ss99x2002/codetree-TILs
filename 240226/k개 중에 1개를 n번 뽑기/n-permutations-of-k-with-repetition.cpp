@@ -14,7 +14,7 @@ void func(int k) {
         return;
     }
 
-    for (int i=1; i<=N; i++){
+    for (int i=1; i<=K; i++){
         arr[k] = i;
         visited[i] = true;
         func(k+1);
