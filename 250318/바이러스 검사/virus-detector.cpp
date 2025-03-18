@@ -12,7 +12,7 @@ long long calNum(int maxC){
         return 1;
     }
     else {
-        if ((maxC-maxL)%maxM == 0){
+        if ((maxC-maxL)%maxM == 0 || (maxC-maxL)/maxM<0){
             return n*((maxC-maxL)/maxM + 1);
         }
         else{
