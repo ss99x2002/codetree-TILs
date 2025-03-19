@@ -59,8 +59,7 @@ void moveCandy(int dir) {
 
 // 백트래킹 함수
 void backTraking(int cnt) {
-    if (cnt >= 10) {
-        if (ansMin == 11) ans = -1; // 답이 갱신되지 않았으면 -1
+    if (cnt > 10) {
         return;
     }
     if (isBlueExit) return;
