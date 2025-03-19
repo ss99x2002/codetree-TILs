@@ -1,54 +1,60 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
 int n, m;
 char board[11][11];
-int dx[4] = {-1, 0, 1, 0}; // 상, 우, 하, 좌
+int dx[4] = {-1, 0, 1, 0}; // 상,우,하,좌
 int dy[4] = {0, 1, 0, -1};
 int ans = -1;
 int ansMin = 11;
 
+// . = 빈칸, # = 장애물, B = 블루 사탕,
+// R = 레드 사탕, O = 출구
+
+// 출력 : 빨간 사탕을 꺼내기 위해 기울여야하는 최소 횟수
+// 만약 10번이내로 빨간사탕 빼내는거 불가능하다면 -1 출력
+
+// 빼낼때 조건
+// 1. 파란색이 밖으로 나오면 안됨
+// 2. 빨-파 동시에 나오면 안됨
+
 pair<int, int> red;
 pair<int, int> blue;
-pair<int, int> exits;
-
-bool isBlueExit = false;
 bool isRedExit = false;
+bool isBlueExit = false;
 
-// 빨간 공이 먼저 이동해야 하는지 확인
-bool isFirstRed(int dir) {
-    if (dir == 0) return red.first < blue.first; // 위쪽 이동 시, 더 위에 있는 공이 먼저
-    if (dir == 1) return red.second > blue.second; // 오른쪽 이동 시, 더 오른쪽에 있는 공이 먼저
-    if (dir == 2) return red.first > blue.first; // 아래쪽 이동 시, 더 아래쪽에 있는 공이 먼저
-    if (dir == 3) return red.second < blue.second; // 왼쪽 이동 시, 더 왼쪽에 있는 공이 먼저
-    return false;
-}
 
-// 공을 이동하는 함수
-pair<int, int> moveBall(pair<int, int> ball, pair<int, int> other, int dir, bool& isExit) {
+pair<int, int> moveBall(pair<int, int> ball, pair<int, int> other, int dir, bool &isExit) {
     while (true) {
         int nx = ball.first + dx[dir];
         int ny = ball.second + dy[dir];
-
-        if (board[nx][ny] == '#') break; // 벽이면 멈춤
-        if (board[nx][ny] == 'O') { // 구멍에 빠짐
+        if (board[nx][ny] == '#') return {ball.first, ball.second};
+        if (board[nx][ny] == 'O') {
             isExit = true;
             return {nx, ny};
         }
-        if (nx == other.first && ny == other.second) break; // 다른 공이 있으면 멈춤
-
-        ball = {nx, ny}; // 이동
+        if (nx == other.first && ny == other.second) return {ball.first, ball.second};
+        ball = {nx, ny};
     }
-    return ball;
 }
 
-// 빨간 공과 파란 공을 이동시키는 함수
-void moveCandy(int dir) {
-    bool firstRed = isFirstRed(dir);
+bool isFirstRed(int dir) {
+    dir = dir%4;
+    if (dir == 0) { //상
+        return red.first < blue.first;
+    } else if (dir == 1) { //우
+        return red.second > blue.second;
+    } else if (dir == 2) { // 하
+        return red.first > blue.first;
+    } else if (dir == 3) { //좌
+        return red.second < blue.second;
+    }
 
-    if (firstRed) {
+}
+
+void moveCandy(int dir) {
+    if (isFirstRed(dir)) {
         red = moveBall(red, blue, dir, isRedExit);
         blue = moveBall(blue, red, dir, isBlueExit);
     } else {
@@ -57,11 +63,11 @@ void moveCandy(int dir) {
     }
 }
 
-// 백트래킹 함수
 void backTraking(int cnt) {
     if (cnt > 10) {
         return;
     }
+
     if (isBlueExit) return;
     if (isRedExit) {
         ansMin = min(ansMin, cnt);
@@ -70,20 +76,16 @@ void backTraking(int cnt) {
     }
 
     for (int dir = 0; dir < 4; dir++) {
-        pair<int, int> tempRed = red;
-        pair<int, int> tempBlue = blue;
-        bool tempIsRedExit = isRedExit;
-        bool tempIsBlueExit = isBlueExit;
-
+        pair<int, int> temp_red = red;
+        pair<int, int> temp_blue = blue;
+        bool tempRedExit = isRedExit;
+        bool tempBlueExit = isBlueExit;
         moveCandy(dir);
-
         if (!isBlueExit) backTraking(cnt + 1);
-
-        // 상태 복원
-        red = tempRed;
-        blue = tempBlue;
-        isRedExit = tempIsRedExit;
-        isBlueExit = tempIsBlueExit;
+        red = temp_red;
+        blue = temp_blue;
+        isRedExit = tempRedExit;
+        isBlueExit = tempBlueExit;
     }
 }
 
@@ -92,9 +94,8 @@ int main() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             cin >> board[i][j];
-            if (board[i][j] == 'B') blue = {i, j};
-            else if (board[i][j] == 'R') red = {i, j};
-            else if (board[i][j] == 'O') exits = {i, j};
+            if (board[i][j] == 'B') blue = pair{i, j};
+            else if (board[i][j] == 'R') red = pair{i, j};
         }
     }
     backTraking(0);
