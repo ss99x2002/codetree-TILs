@@ -73,10 +73,10 @@ void moveBoard(int dir){
                     swap(board[i][j], board[i][j+1]);
                     y--;
                 }
-                if (y<n-1 && board[i][j] == board[i][j+1]){
-                    board[i][j+1] = board[i][j]*2;
-                    board[i][j] = 0;
-                    isSum[i][j+1]= true;
+                if (y<n-1 && board[i][y] == board[i][y+1]){
+                    board[i][y+1] = board[i][y]*2;
+                    board[i][y] = 0;
+                    isSum[i][y+1]= true;
                 }
             }
         }
@@ -103,14 +103,14 @@ void moveBoard(int dir){
             for (int j=1; j<n; j++){
                 if (board[i][j] == 0) continue;
                 int y = j;
-                while(y>0 && board[i][j-1]==0){
-                    swap(board[i][j], board[i][j-1]);
+                while(y>0 && board[i][y-1]==0){
+                    swap(board[i][y], board[i][y-1]);
                     y++;
                 }
-                if (y<n-1 && board[i][j] == board[i][j-1]){
-                    board[i][j-1] = board[i][j]*2;
-                    board[i][j] = 0;
-                    isSum[i][j-1]= true;
+                if (y<n-1 && board[i][y] == board[i][y-1]){
+                    board[i][y-1] = board[i][y]*2;
+                    board[i][y] = 0;
+                    isSum[i][y-1]= true;
                 }
             }
         }
