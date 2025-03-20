@@ -128,9 +128,9 @@ void backTracking(int cnt) {
         }
         return;
     }
-
+    
+    copyTmp();
     for (int dir = 0; dir < 4; dir++) {
-        copyTmp();
         moveBoard(dir);
         backTracking(cnt + 1);
         returnBoard();
