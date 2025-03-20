@@ -50,11 +50,11 @@ void moveBoard(int dir){
                 if (board[i][j] == 0) continue;
                 int x = i;
                 while(x > 0 && board[x-1][j] == 0){
-                    swap(board[i][j], board[x-1][j]);
+                    swap(board[x][j], board[x-1][j]);
                     x--;
                 }
 
-                if (x > 0 && board[x-1][j] == board[x][j]){
+                if (x > 0 && board[x-1][j] == board[x][j] && !isSum[x-1][j]){
                     board[x-1][j] = board[x][j]*2;
                     board[x][j] = 0;
                     isSum[x-1][j] = true;
@@ -69,11 +69,11 @@ void moveBoard(int dir){
             for (int j=n-2; j>=0; j--){
                 if (board[i][j] == 0) continue;
                 int y = j;
-                while(y<n-1 && board[i][j+1]==0){
-                    swap(board[i][j], board[i][j+1]);
-                    y--;
+                while(y<n-1 && board[i][y+1]==0){
+                    swap(board[i][y], board[i][y+1]);
+                    y++;
                 }
-                if (y<n-1 && board[i][y] == board[i][y+1]){
+                if (y<n-1 && board[i][y] == board[i][y+1] && !isSum[i][y+1]){
                     board[i][y+1] = board[i][y]*2;
                     board[i][y] = 0;
                     isSum[i][y+1]= true;
@@ -90,7 +90,7 @@ void moveBoard(int dir){
                     swap(board[x][j], board[x+1][j]);
                     x++;
                 }
-                if (x<n-1 && board[x][j] == board[x+1][j]){
+                if (x<n-1 && board[x][j] == board[x+1][j] && !isSum[x+1][j]){
                     board[x+1][j] = board[x][j]*2;
                     board[x][j] = 0;
                     isSum[x+1][j] = true;
@@ -105,9 +105,9 @@ void moveBoard(int dir){
                 int y = j;
                 while(y>0 && board[i][y-1]==0){
                     swap(board[i][y], board[i][y-1]);
-                    y++;
+                    y--;
                 }
-                if (y<n-1 && board[i][y] == board[i][y-1]){
+                if (y>0 && board[i][y] == board[i][y-1] && !isSum[i][y-1]){
                     board[i][y-1] = board[i][y]*2;
                     board[i][y] = 0;
                     isSum[i][y-1]= true;
