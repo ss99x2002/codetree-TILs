@@ -66,8 +66,8 @@ void moveBoard(int dir) {
                 int y = j;
 
                 while (y < n - 1 && board[i][y+1] == 0) {
-                   board[i][y+1] = board[x][y];
-                    board[x][y] = 0;
+                   board[i][y+1] = board[i][y];
+                    board[i][y] = 0;
                     y++;
                 }
 
