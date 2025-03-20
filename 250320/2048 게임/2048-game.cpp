@@ -55,7 +55,7 @@ void moveBoard(int dir){
                 }
 
                 if (x > 0 && board[x-1][j] == board[x][j] && !isSum[x-1][j]){
-                    board[x-1][j] = board[x][j]*2;
+                    board[x-1][j] = board[x-1][j]*2;
                     board[x][j] = 0;
                     isSum[x-1][j] = true;
                 }
@@ -74,7 +74,7 @@ void moveBoard(int dir){
                     y++;
                 }
                 if (y<n-1 && board[i][y] == board[i][y+1] && !isSum[i][y+1]){
-                    board[i][y+1] = board[i][y]*2;
+                    board[i][y+1] = board[i][y+1]*2;
                     board[i][y] = 0;
                     isSum[i][y+1]= true;
                 }
@@ -91,7 +91,7 @@ void moveBoard(int dir){
                     x++;
                 }
                 if (x<n-1 && board[x][j] == board[x+1][j] && !isSum[x+1][j]){
-                    board[x+1][j] = board[x][j]*2;
+                    board[x+1][j] = board[x+1][j]*2;
                     board[x][j] = 0;
                     isSum[x+1][j] = true;
                 }
@@ -108,7 +108,7 @@ void moveBoard(int dir){
                     y--;
                 }
                 if (y>0 && board[i][y] == board[i][y-1] && !isSum[i][y-1]){
-                    board[i][y-1] = board[i][y]*2;
+                    board[i][y-1] = board[i][y-1]*2;
                     board[i][y] = 0;
                     isSum[i][y-1]= true;
                 }
