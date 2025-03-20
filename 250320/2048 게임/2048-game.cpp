@@ -47,7 +47,8 @@ void moveBoard(int dir) {
                 int x = i;
                 
                 while (x > 0 && board[x-1][j] == 0) {
-                    swap(board[x][j], board[x-1][j]);
+                    board[x-1][j] = board[x][j];
+                    board[x][j] = 0;
                     x--;
                 }
 
@@ -65,7 +66,8 @@ void moveBoard(int dir) {
                 int y = j;
 
                 while (y < n - 1 && board[i][y+1] == 0) {
-                    swap(board[i][y], board[i][y+1]);
+                   board[i][y+1] = board[x][y];
+                    board[x][y] = 0;
                     y++;
                 }
 
@@ -83,7 +85,8 @@ void moveBoard(int dir) {
                 int x = i;
 
                 while (x < n - 1 && board[x+1][j] == 0) {
-                    swap(board[x][j], board[x+1][j]);
+                    board[x+1][j] = board[x][j];
+                    board[x][j] = 0;
                     x++;
                 }
 
@@ -101,7 +104,8 @@ void moveBoard(int dir) {
                 int y = j;
 
                 while (y > 0 && board[i][y-1] == 0) {
-                    swap(board[i][y], board[i][y-1]);
+                  board[i][y-1] = board[i][y];
+                  board[i][y] = 0;
                     y--;
                 }
 
