@@ -2,44 +2,39 @@
 #include <algorithm>
 using namespace std;
 
-int n,t,p;
-int task[16];
+int n, t, p;
 int maxSum = 0;
+vector<pair<int, int>> tasks;  // {소요시간, 수익}
+vector<int> dp;  // DP 배열
 
-// 외주작업에 걸리는 시간 t, 수익 p 
-// work = {idx(시작 시간),p} 담고있음. 
-// time = {시작시간, 끝나는 시간} 담도록. 
+// 백트래킹 함수
+void backTracking(int idx, int sum) {
+    // 최대 수익 갱신
+    maxSum = max(maxSum, sum);
 
-vector<pair<int,int>> work;
-vector<pair<int,int>> times;
-
-void backTraking(int idx, int sum){
-    maxSum = max(maxSum,sum);
-    for (int i= idx+1; i<n; i++){
-        if (times[idx].second <= times[i].first){
-            backTraking(i, sum+work[i].second); 
+    // 가능한 다음 작업을 탐색
+    for (int i = idx + 1; i < n; i++) {
+        // 현재 작업이 끝난 시간 <= 다음 작업이 시작하는 시간일 경우
+        if (tasks[idx].first + idx <= i) {
+            backTracking(i, sum + tasks[i].second);  // 선택된 작업을 추가
         }
     }
 }
 
 int main() {
     cin >> n;
-    for (int i=0; i<n; i++){
+
+    // 작업 정보 입력
+    for (int i = 0; i < n; i++) {
         cin >> t >> p;
-        work.push_back({i,p}); //시작 시간(이자 idx 역할도 됨.),point
-        times.push_back({i, i+t}); // 시작시간, 끝나는 시간
+        tasks.push_back({t, p}); // 소요 시간과 수익
     }
 
-    for (int i=0; i<n; i++){
-            backTraking(i,work[i].second);
+    // 모든 작업을 시작점으로 해서 backtracking 호출
+    for (int i = 0; i < n; i++) {
+        backTracking(i, tasks[i].second);  // 현재 작업부터 시작
     }
 
-    cout << maxSum << "\n";
+    cout << maxSum << "\n";  // 최대 수익 출력
     return 0;
 }
-
-   // 내가 구현해야 하는 것
-    // 어떤것이든 첫번째로 선택 가능.
-    // 그 이후로는 조건이 -> 이전에 선택했던 것의 끝나는 시간 <= 선택하는 것의 시작 시간
-    // 이 조건이 맞다면 backTraking 계속 진행 함.
-    // 선택한 것의 index가 n에 도달했다면 -> 포인트의 합을 max인지 아닌지 판단 후 갱신 필요.
