@@ -13,14 +13,13 @@ int maxSum = 0;
 vector<pair<int,int>> work;
 vector<pair<int,int>> times;
 
-int backTraking(int idx, int sum){
+void backTraking(int idx, int sum){
     maxSum = max(maxSum,sum);
     for (int i= idx+1; i<n; i++){
         if (times[idx].second <= times[i].first){
             backTraking(i, sum+work[i].second); 
         }
     }
-    return maxSum;
 }
 
 int main() {
