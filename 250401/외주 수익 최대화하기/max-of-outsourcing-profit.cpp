@@ -15,7 +15,7 @@ vector<pair<int,int>> times;
 
 void backTraking(int idx, int sum){
     maxSum = max(maxSum,sum);
-    for (int i= idx+1; i<n; i++){
+    for (int i= idx; i<n; i++){
         if (times[idx].second <= times[i].first){
             backTraking(i, sum+work[i].second); 
         }
