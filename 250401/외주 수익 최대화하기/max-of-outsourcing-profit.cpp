@@ -31,9 +31,7 @@ int main() {
     }
 
     for (int i=0; i<n; i++){
-        if (times[i].first <= n){
             backTraking(i,work[i].second);
-        }
     }
 
     cout << maxSum << "\n";
